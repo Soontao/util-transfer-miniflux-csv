@@ -3,5 +3,5 @@
   "extends": [
     "config:base"
   ],
-  "automerge": ture
+  "automerge": true
 }
