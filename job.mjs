@@ -40,6 +40,7 @@ export async function runJob() {
     }
     const remoteFile = webdavClient.createWriteStream(`miniflux_archive_${Date.now()}.csv`)
     const stringifier = csv.stringify({
+      bom: true,
       record_delimiter: "unix",
       delimiter: ",",
       header: true,
