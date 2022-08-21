@@ -1,0 +1,20 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "start",
+      "outputCapture": "std",
+      "env": {
+        "LOG_LEVEL": "debug",
+        "LOG_TIME": "abs"
+      },
+      "skipFiles": [
+        "<node_internals>/**"
+      ],
+      "envFile": "${workspaceFolder}/.env",
+      "program": "${workspaceFolder}/server.mjs"
+    }
+  ]
+}
