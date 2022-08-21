@@ -23,7 +23,8 @@ app.get("/run", async (req, res) => {
   }
   catch (error) {
     return res.status(500).json({
-      error
+      success: false,
+      error: error.message ?? error,
     })
   }
   return res.json({ success: true })

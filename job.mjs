@@ -2,6 +2,7 @@ import log from "log";
 import pg from "pg";
 import * as webdav from "webdav";
 import * as csv from "csv";
+import { DateTime } from "luxon";
 
 export async function runJob() {
   log.info("Running job");
@@ -38,7 +39,7 @@ export async function runJob() {
     if (result.rowCount === 0) {
       return log.warning('No newly entries found');
     }
-    const remoteFile = webdavClient.createWriteStream(`miniflux_archive_${Date.now()}.csv`)
+    const remoteFile = webdavClient.createWriteStream(`miniflux_archive_${DateTime.now().toFormat("yyyyMMdd_HHmmss")}.csv`)
     const stringifier = csv.stringify({
       bom: true,
       record_delimiter: "unix",
@@ -51,7 +52,7 @@ export async function runJob() {
     const p = new Promise((resolve, reject) => {
       stringifier.on("error", (error) => { log.error("Error writing to csv: %o", error); reject(error) })
       remoteFile.on("error", (error) => { log.error("Error writing to webdav: %o", error); reject(error) })
-      remoteFile.on("end", () => { log.info("Finished writing to webdav"); resolve() })
+      remoteFile.on("end", () => { log.info("Finished writing to webdav with %d records", result.rowCount); resolve() })
     })
     stringifier.pipe(remoteFile)
     for (const row of result.rows) { stringifier.write(row) }
@@ -60,6 +61,7 @@ export async function runJob() {
   }
   catch (error) {
     log.error("failed to connect to postgres", error)
+    throw error
   }
   finally {
     await client.end()
