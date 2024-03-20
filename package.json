@@ -19,7 +19,7 @@
   "dependencies": {
     "cron": "3.1.6",
     "csv": "6.3.8",
-    "express": "4.19.0",
+    "express": "4.19.1",
     "log": "6.3.1",
     "log-node": "8.0.3",
     "luxon": "3.4.4",
