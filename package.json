@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/Soontao/util-transfer-miniflux-csv#readme",
   "dependencies": {
-    "cron": "3.1.6",
+    "cron": "3.1.7",
     "csv": "6.3.8",
     "express": "4.19.2",
     "log": "6.3.1",
